@@ -67,20 +67,38 @@ for(i=col-height+1;i<=col+height-1;i++)
    canvas[row+height-1][i]='*';
   }
 }
+void drawCircle(int xc,int yc,int r)
+{
+  int x,y,d;
+  for(y=0;y<rows;y++)
+   {
+     for(x=0;x<columns;x++)
+      {
+        d=(x-xc)*(x-xc)+(y-yc)*(y-yc);
+         if(d>r*r-r && d<=r*r+r)
+          {
+           canvas[y][x]='*';
+          }
+      }
+   }
+}
+
 int main()
 {
   int choice;
   int row,col,height,width;
   int row1,col1,row2,col2;
   int trow,tcol,theight;
+  int xc,yc,r;
   initilizeCanvas();
   do
   {
     printf("\n1. Draw Rectangle");
     printf("\n2.Draw Line");
     printf("\n3. Draw Triangle");
-    printf("\n4. Display Canvas");
-    printf("\n5.Exit");
+    printf("\n4. Draw Circle");
+    printf("\n5. Display Canvas");
+    printf("\n6.Exit");
     printf("\nEnter choice:");
     scanf("%d",&choice);
     switch(choice)
@@ -100,17 +118,22 @@ int main()
         scanf("%d%d%d",&trow,&tcol,&theight);
         drawTriangle(trow,tcol,theight);
       break;
-      
       case 4:
+        printf("Enter center row center column radius:");
+        scanf("%d%d%d",&yc,&xc,&r);
+        drawCircle(xc,yc,r);
+        break;
+      
+      case 5:
         displayCanvas();
         break;
-      case 5:
+      case 6:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=5);
+  }while(choice!=6);
   return 0;
 }
            
