@@ -82,6 +82,19 @@ void drawCircle(int xc,int yc,int r)
       }
    }
 }
+void deleteArea(int row,int col,int height,int width)
+{
+  int i,j;
+  for(i=row;i<row+height;i++)
+  {
+    for(j=col;j<col+width;j++)
+     {
+       canvas[i][j]=' ';
+     }
+  }
+}
+
+
 
 int main()
 {
@@ -90,6 +103,7 @@ int main()
   int row1,col1,row2,col2;
   int trow,tcol,theight;
   int xc,yc,r;
+  int drow,dcol,dheight,dwidth;
   initilizeCanvas();
   do
   {
@@ -97,8 +111,9 @@ int main()
     printf("\n2.Draw Line");
     printf("\n3. Draw Triangle");
     printf("\n4. Draw Circle");
-    printf("\n5. Display Canvas");
-    printf("\n6.Exit");
+    printf("\n5. Delete Area");
+    printf("\n6. Display Canvas");
+    printf("\n7.Exit");
     printf("\nEnter choice:");
     scanf("%d",&choice);
     switch(choice)
@@ -123,17 +138,21 @@ int main()
         scanf("%d%d%d",&yc,&xc,&r);
         drawCircle(xc,yc,r);
         break;
-      
       case 5:
+        printf("Enter row column height width:");
+        scanf("%d%d%d%d",&drow,&dcol,&dheight,&dwidth);
+        deleteArea(drow,dcol,dheight,dwidth);
+       break;
+      case 6:
         displayCanvas();
         break;
-      case 6:
+      case 7:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=6);
+  }while(choice!=7);
   return 0;
 }
            
