@@ -54,18 +54,33 @@ for(i=row1;i<=row2;i++)
   canvas[i][col1]='*';
  }
 }
+void drawTriangle(int row,int col,int height)
+{
+  int i;
+   for(i=0;i<height;i++)
+{
+  canvas[row+i][col-i]='*';
+  canvas[row+i][col+i]='*';
+}
+for(i=col-height+1;i<=col+height-1;i++)
+  {
+   canvas[row+height-1][i]='*';
+  }
+}
 int main()
 {
   int choice;
   int row,col,height,width;
   int row1,col1,row2,col2;
+  int trow,tcol,theight;
   initilizeCanvas();
   do
   {
     printf("\n1. Draw Rectangle");
     printf("\n2.Draw Line");
-    printf("\n3. Display Canvas");
-    printf("\n4.Exit");
+    printf("\n3. Draw Triangle");
+    printf("\n4. Display Canvas");
+    printf("\n5.Exit");
     printf("\nEnter choice:");
     scanf("%d",&choice);
     switch(choice)
@@ -81,15 +96,21 @@ int main()
        drawLine(row1,col1,row2,col2);
        break;
       case 3:
+        printf("Enter row column height:");
+        scanf("%d%d%d",&trow,&tcol,&theight);
+        drawTriangle(trow,tcol,theight);
+      break;
+      
+      case 4:
         displayCanvas();
         break;
-      case 4:
+      case 5:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=4);
+  }while(choice!=5);
   return 0;
 }
            
