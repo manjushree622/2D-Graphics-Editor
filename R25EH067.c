@@ -94,7 +94,11 @@ void deleteArea(int row,int col,int height,int width)
   }
 }
 
-
+void modifyRectangle(int oldrow,int oldcol,int oldheight,int oldwidth,int newrow,int newcol,int newheight,int newwidth)
+{
+  deleteArea(oldrow,oldcol,oldheight,oldwidth);
+  drawRectangle(newrow,newcol,newheight,newwidth);
+}
 
 int main()
 {
@@ -104,17 +108,20 @@ int main()
   int trow,tcol,theight;
   int xc,yc,r;
   int drow,dcol,dheight,dwidth;
+  int oldrow,oldcol,oldheight,oldwidth;
+  int newrow,newcol,newheight,newwidth;
   initilizeCanvas();
   do
   {
     printf("\n1. Draw Rectangle");
-    printf("\n2.Draw Line");
+    printf("\n2. Draw Line");
     printf("\n3. Draw Triangle");
     printf("\n4. Draw Circle");
     printf("\n5. Delete Area");
     printf("\n6. Display Canvas");
-    printf("\n7.Exit");
-    printf("\nEnter choice:");
+    printf("\n7. Modify Rectangle:");
+    printf("\n8. Exit");
+    printf("\n Enter choice:");
     scanf("%d",&choice);
     switch(choice)
     {
@@ -147,12 +154,20 @@ int main()
         displayCanvas();
         break;
       case 7:
+        printf("Enter old row col height width:");
+        scanf("%d%d%d%d",&oldrow,&oldcol,&oldheight,&oldwidth);
+        printf("Enter new row col height width:");
+        scanf("%d%d%d%d",&newrow,&newcol,&newheight,&newwidth);
+        modifyRectangle(oldrow,oldcol,oldheight,oldwidth,newrow,newcol,newheight,newwidth);
+        break;
+      
+      case 8:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=7);
+  }while(choice!=8);
   return 0;
 }
            
