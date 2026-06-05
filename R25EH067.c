@@ -63,7 +63,7 @@ int main()
   do
   {
     printf("\n1. Draw Rectangle");
-    printf("\n2.Draw Line);
+    printf("\n2.Draw Line");
     printf("\n3. Display Canvas");
     printf("\n4.Exit");
     printf("\nEnter choice:");
