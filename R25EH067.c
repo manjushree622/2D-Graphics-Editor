@@ -2,7 +2,7 @@
 #define rows 30
 #define columns 30
 char canvas[rows][columns];
-void initilizeCanvas()
+void initializeCanvas()
 {
   int i,j;
   for(i=0;i<rows;i++)
@@ -75,7 +75,7 @@ void drawCircle(int xc,int yc,int r)
      for(x=0;x<columns;x++)
       {
         d=(x-xc)*(x-xc)+(y-yc)*(y-yc);
-         if(d>r*r-r && d<=r*r+r)
+         if(d<=r*r)
           {
            canvas[y][x]='*';
           }
@@ -93,23 +93,58 @@ void deleteArea(int row,int col,int height,int width)
      }
   }
 }
+void  deleteCircle(int xc,int yc,int r)
+{
+  int x,y;
+for(y=0;y<rows;y++)
+ {
+for(x=0;x<columns;x++)
+ {
+ if((x-xc)*(x-xc)+(y-yc)*(y-yc)<=r*r)
+   {
+  canvas[y][x]=' ';
+   }
+  }
+ }
+}
+
+  
 
 void modifyRectangle(int oldrow,int oldcol,int oldheight,int oldwidth,int newrow,int newcol,int newheight,int newwidth)
 {
   deleteArea(oldrow,oldcol,oldheight,oldwidth);
   drawRectangle(newrow,newcol,newheight,newwidth);
 }
+void deleteCircle(int xc,int yc,int r)
+{
+  int x,y;
+for(y=0;y<rows;y++)
+{
+for(x=0;x<columns;x++)
+ {
+  if((x-xc)*(x-xc) + (y-yc)*(y-yc)<= r*r)
+   {
+     canvas[y][x]=' ';
+   }
+ }
+}
+}
+
 void modifyCircle(int oldxc,int oldyc,int oldr,int newxc,int newyc,int newr)
 {
-  deleteArea(oldyc-oldr,oldxc-oldr,2*oldr+1,2*oldr+1);
+  deleteCircle(oldxc,oldyc,oldr);
   drawCircle(newxc,newyc,newr);
 }
 void modifyLine(int oldrow1,int oldcol1,int oldrow2,int oldcol2,int newrow1,int newcol1,int newrow2,int newcol2)
 {
-  deleteArea(oldrow1,oldcol1,oldrow2-oldrow1+1,newcol2-oldcol1+1);
+  deleteArea(oldrow1,oldcol1,oldrow2-oldrow1+1,oldcol2-oldcol1+1);
   drawLine(newrow1,newcol1,newrow2,newcol2);
 }
-
+void modifyTriangle(int oldrow,int oldcol,int oldheight,int newrow,int newcol,int newheight)
+{
+  deleteArea(oldrow,oldcol-oldheight,oldheight,2*oldheight+1);
+  drawTriangle(newrow,newcol,newheight);
+}
 int main()
 {
   int choice;
@@ -124,7 +159,9 @@ int main()
   int newxc,newyc,newr;
   int oldrow1,oldcol1,oldrow2,oldcol2;
   int newrow1,newcol1,newrow2,newcol2;
-  initilizeCanvas();
+  int oldtrow,oldtcol,oldtheight;
+  int newtrow,newtcol,newtheight;
+  initializeCanvas();
   do
   {
     printf("\n1. Draw Rectangle");
@@ -136,7 +173,8 @@ int main()
     printf("\n7. Modify Rectangle");
     printf("\n8. Modify Circle");
     printf("\n9. Modify Line");
-    printf("\n10. Exit");
+    printf("\n10. Modify Triangle");
+    printf("\n11. Exit");
     printf("\n Enter choice:");
     scanf("%d",&choice);
     switch(choice)
@@ -191,12 +229,20 @@ int main()
         modifyLine(oldrow1,oldcol1,oldrow2,oldcol2,newrow1,newcol1,newrow2,newcol2);
         break;
       case 10:
+        
+        printf("Enter old row col height:");
+        scanf("%d%d%d",&oldtrow,&oldtcol,&oldtheight);
+        printf("Enter new row col height:");
+        scanf("%d%d%d",&newtrow,&newtcol,&newtheight);
+        modifyTriangle(oldtrow,oldtcol,oldtheight,newtrow,newtcol,newtheight);
+        break;
+      case 11:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=10);
+  }while(choice!=11);
   return 0;
 }
            
