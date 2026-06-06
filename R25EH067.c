@@ -104,6 +104,12 @@ void modifyCircle(int oldxc,int oldyc,int oldr,int newxc,int newyc,int newr)
   deleteArea(oldyc-oldr,oldxc-oldr,2*oldr+1,2*oldr+1);
   drawCircle(newxc,newyc,newr);
 }
+void modifyLine(int oldrow1,int oldcol1,int oldrow2,int oldcol2,int newrow1,int newcol1,int newrow2,int newcol2)
+{
+  deleteArea(oldrow1,oldcol1,oldrow2-oldrow1+1,newcol2-oldcol1+1);
+  drawLine(newrow1,newcol1,newrow2,newcol2);
+}
+
 int main()
 {
   int choice;
@@ -116,6 +122,8 @@ int main()
   int newrow,newcol,newheight,newwidth;
   int oldxc,oldyc,oldr;
   int newxc,newyc,newr;
+  int oldrow1,oldcol1,oldrow2,oldcol2;
+  int newrow1,newcol1,newrow2,newcol2;
   initilizeCanvas();
   do
   {
@@ -127,7 +135,8 @@ int main()
     printf("\n6. Display Canvas");
     printf("\n7. Modify Rectangle");
     printf("\n8. Modify Circle");
-    printf("\n9. Exit");
+    printf("\n9. Modify Line");
+    printf("\n10. Exit");
     printf("\n Enter choice:");
     scanf("%d",&choice);
     switch(choice)
@@ -175,12 +184,19 @@ int main()
         modifyCircle(oldxc,oldyc,oldr,newxc,newyc,newr);
         break;
       case 9:
+        printf("Enter old row1 col1 row2 col2:");
+        scanf("%d%d%d%d",&oldrow1,&oldcol1,&oldrow2,&oldcol2);
+        printf("Enter new row1 col1 row2 col2:");
+        scanf("%d%d%d%d",&newrow1,&newcol1,&newrow2,&newcol2);
+        modifyLine(oldrow1,oldcol1,oldrow2,oldcol2,newrow1,newcol1,newrow2,newcol2);
+        break;
+      case 10:
         printf("Exiting .....\n");
       break;
        default:
          printf("Invalid choice \n");
      }
-  }while(choice!=9);
+  }while(choice!=10);
   return 0;
 }
            
