@@ -9,7 +9,7 @@ void initializeCanvas()
   {
     for(j=0;j<columns;j++)
      {
-       canvas[i][j]=' ';
+       canvas[i][j]='_';
      }
   }
 }
@@ -41,19 +41,40 @@ void drawRectangle(int row,int col,int height,int width)
 }
 void drawLine(int row1,int col1,int row2,int col2)
 {
-  int i;
-if(row1==row2)
- {
-for(i=col1;i<=col2;i++)
-  canvas[row1][i]='*';
+  int i,start,end;
+  if(row1==row2)
+  {
+    if(col1<col2)
+    {
+     start=col1;
+     end=col2;
+     }
+   else
+   {
+    start=col2;
+    end=col1;
+   }
+  for(i=start;i<=end;i++)
+    canvas[row1][i]='*';
  }
-else
-if(col1==col2)
- {
-for(i=row1;i<=row2;i++)
-  canvas[i][col1]='*';
- }
+else if(col1==col2)
+{
+  if(row1<row2)
+  {
+    start=row1;
+    end=row2;
+  }
+  else
+  {
+    start=row2;
+    end=row1;
+  }
+  for(i=start;i<=end;i++)
+    canvas[i][col1]='*';
 }
+}
+
+
 void drawTriangle(int row,int col,int height)
 {
   int i;
@@ -89,7 +110,7 @@ void deleteArea(int row,int col,int height,int width)
   {
     for(j=col;j<col+width;j++)
      {
-       canvas[i][j]=' ';
+       canvas[i][j]='_';
      }
   }
 }
@@ -102,7 +123,7 @@ for(x=0;x<columns;x++)
  {
  if((x-xc)*(x-xc)+(y-yc)*(y-yc)<=r*r)
    {
-  canvas[y][x]=' ';
+  canvas[y][x]='_';
    }
   }
  }
@@ -115,20 +136,7 @@ void modifyRectangle(int oldrow,int oldcol,int oldheight,int oldwidth,int newrow
   deleteArea(oldrow,oldcol,oldheight,oldwidth);
   drawRectangle(newrow,newcol,newheight,newwidth);
 }
-void deleteCircle(int xc,int yc,int r)
-{
-  int x,y;
-for(y=0;y<rows;y++)
-{
-for(x=0;x<columns;x++)
- {
-  if((x-xc)*(x-xc) + (y-yc)*(y-yc)<= r*r)
-   {
-     canvas[y][x]=' ';
-   }
- }
-}
-}
+
 
 void modifyCircle(int oldxc,int oldyc,int oldr,int newxc,int newyc,int newr)
 {
@@ -137,9 +145,36 @@ void modifyCircle(int oldxc,int oldyc,int oldr,int newxc,int newyc,int newr)
 }
 void modifyLine(int oldrow1,int oldcol1,int oldrow2,int oldcol2,int newrow1,int newcol1,int newrow2,int newcol2)
 {
-  deleteArea(oldrow1,oldcol1,oldrow2-oldrow1+1,oldcol2-oldcol1+1);
+  if(oldrow1!=oldrow2 && oldcol1!=oldcol2)
+  {
+    printf("Only horizontal and vertical lines are supported \n");
+    return;
+  }
+  int minrow,maxrow,mincol,maxcol;
+  if(oldrow1<oldrow2)
+  {
+    minrow=oldrow1;
+    maxrow=oldrow2;
+  }
+  else
+  {
+    minrow=oldrow2;
+    maxrow=oldrow1;
+  }
+  if(oldcol1<oldcol2)
+  {
+     mincol=oldcol1;
+     maxcol=oldcol2;
+  }
+  else
+  {
+    mincol=oldcol2;
+    maxcol=oldcol1;
+  }
+  deleteArea(minrow,mincol,maxrow-minrow+1,maxcol-mincol+1);
   drawLine(newrow1,newcol1,newrow2,newcol2);
 }
+
 void modifyTriangle(int oldrow,int oldcol,int oldheight,int newrow,int newcol,int newheight)
 {
   deleteArea(oldrow,oldcol-oldheight,oldheight,2*oldheight+1);
