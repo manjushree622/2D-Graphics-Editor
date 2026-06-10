@@ -25,6 +25,7 @@ A simple 2D Graphics Editor developed in C that allows users to create and manag
 ## Project Structure
 
 - `main.c` – Main source code
+
 - `editor.exe` – Executable program
 - `prompt.txt` – Project documentation and requirements
 
