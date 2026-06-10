@@ -1,0 +1,32 @@
+Prompt 1:
+
+Design and implement a menu-driven 2D Graphics Editor in C using a 2D character array as the drawing canvas.
+
+Requirements:
+
+- Initialize the canvas with '_' characters.
+- Draw graphical objects using '*' characters.
+- Implement functions to draw rectangle, line, triangle, and circle.
+- Allow users to add, delete, and modify objects.
+- Use a menu-driven interface.
+- Store graphical objects in suitable data structures.
+- Generate complete compilable C code.
+
+Response 1:
+
+Generated a complete C program implementing:
+
+- Canvas management using a 2D character array.
+- Rectangle, line, triangle, and circle drawing functions.
+- Object storage using structures and unions.
+- Add, delete, and modify operations.
+- Menu-driven user interface.
+- Input validation and canvas redraw functionality.
+
+Prompt 2:
+
+Add comments and improve input validation in the graphics editor program.
+
+Response 2:
+
+Added detailed comments, safe integer input handling, range validation, and improved program structure.
