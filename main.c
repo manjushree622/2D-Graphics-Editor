@@ -1,7 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 // --- Constants ---
 #define WIDTH 80        // Width of the graphics canvas
